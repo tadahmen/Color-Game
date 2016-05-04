@@ -6,7 +6,7 @@ let numberOfBlocks = 0;
 function initialize(){
   $('body').css({ height: $(window).height() });
   // $('#blocks-container').css({ margin: 0px 10px 0px 10px });
-  createBlocks(25)
+  createBlocks(24)
 }
 
 function randomColor() {
@@ -27,13 +27,20 @@ function createBlocks (amount) {
     numberOfBlocks = amount;
     let blockColor = "";
     let borderColor = "";
-
+    let blocksContainerMargin = 10;
     /*window ratio is needed to calculate how to get all blocks in the screen while making optimal use of screenspace*/
-    let freeWindowHeight = $(window).height() - $("#blocks-container").offset().top;
-    let emptyWindowRatio = $(window).width()/freeWindowHeight;
+    let freeHeight = $(window).height() - $("#blocks-container").offset().top;
+    console.log("blocks-container offset = " + $("#blocks-container").offset().top);
+    let freeWidth = $(window).width() - (blocksContainerMargin*2);
+    console.log("free width = " + freeWidth);
+    let emptyWindowRatio = freeWidth/freeHeight;
     /*devide this in equal squares*/
     let blocksPerSquare = amount / emptyWindowRatio;
     let blocksPerRow = Math.ceil(Math.sqrt(blocksPerSquare) * emptyWindowRatio);
+    let blockWidth = 100/blocksPerRow;
+    console.log("blockWidth is " + blockWidth);
+    let absoluteBlockBorderWidth = 0.06 * blockWidth * $(window).width() / 100;
+    console.log("blockborder width is: " + absoluteBlockBorderWidth);
     let numberOfRows = Math.ceil(amount / blocksPerRow);
 
     createRows(numberOfRows);
@@ -49,7 +56,7 @@ function createBlocks (amount) {
           blockColor = randomColor();
           borderColor = randomColor();
           console.log ("color is: " + blockColor);
-          let block = "<div class = 'colorBlock' style = 'background-color: " + blockColor + "; border: 5px solid " + borderColor + "; width: " + 100/blocksPerRow + "%; padding-bottom: " + ((100/blocksPerRow)-1.5) + "%' ondragover = 'droppable(event)' ondrop = 'drop (event)'> </div>";
+          let block = "<div class = 'colorBlock' style = 'background-color: " + blockColor + "; border: " + absoluteBlockBorderWidth + "px solid " + borderColor + "; width: " + blockWidth + "%; padding-bottom: " + ((100/blocksPerRow)-2) + "%' ondragover = 'droppable(event)' ondrop = 'drop (event)'> </div>";
           $(".block-row").eq(j).append(block);
           i++
         }
@@ -65,6 +72,7 @@ function createBlocks (amount) {
 
     // let height = $(".colorBlock").css("width");
     // $(".colorBlock").css({height: height});
+
     createFish();
 }
 
