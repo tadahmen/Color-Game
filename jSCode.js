@@ -27,10 +27,11 @@ function createBlocks (amount) {
     numberOfBlocks = amount;
     let blockColor = "";
     let borderColor = "";
-
+    let blocksContainerMargin = 10;
     /*window ratio is needed to calculate how to get all blocks in the screen while making optimal use of screenspace*/
     let freeWindowHeight = $(window).height() - $("#blocks-container").offset().top;
-    let emptyWindowRatio = $(window).width()/freeWindowHeight;
+    let freeWidth = $(window).width() - (blocksContainerMargin*2);
+    let emptyWindowRatio = freeWidth/freeWindowHeight;
     /*devide this in equal squares*/
     let blocksPerSquare = amount / emptyWindowRatio;
     let blocksPerRow = Math.ceil(Math.sqrt(blocksPerSquare) * emptyWindowRatio);
@@ -65,6 +66,7 @@ function createBlocks (amount) {
 
     // let height = $(".colorBlock").css("width");
     // $(".colorBlock").css({height: height});
+
     createFish();
 }
 

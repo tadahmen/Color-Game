@@ -27,7 +27,6 @@ body {
 
 #blocks-container {
   margin: 0px 10px 0px 10px;
-  overflow: hidden;
 }
 /*to get rid of the vertical space between the divs*/
 .row {
