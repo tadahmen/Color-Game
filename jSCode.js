@@ -108,6 +108,7 @@ function createFish() {
 
 function drag (event) {
   event.dataTransfer.setData(type ="text", event.target.id);
+  sessionStorage.setItem("color", event.target.style.color); //to get color in dragover event; dataTransfer can only be accessed in drop event.
   offsetX = event.clientX - $(event.target).offset().left;
   offsetY = event.clientY - $(event.target).offset().top;
 }
@@ -119,13 +120,14 @@ function noFishInBlock (block) {
 function droppable (event) {
   event.preventDefault();
   if (noFishInBlock(event.target)) {
-    let fishColor = event.dataTransfer.getData("text");
-    console.log("fishColor" + fishColor);
+    let fishColor = sessionStorage.getItem("color"); //dataTransfer cannot be accessed in 'ondragover' event.
+    console.log("fishColor " + fishColor);
     event.target.style.backgroundColor = fishColor;
   }
+  console.log("no fish in block? = " + noFishInBlock(event.target) );
 }
 
-function noTarget () {
+function noTarget (event) {
     event.stopPropagation();  //'stops' this element from being a target (because the parent div is a target)
 }
 
