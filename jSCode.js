@@ -39,7 +39,7 @@ function createBlocks (amount) {
     let blocksPerRow = Math.ceil(Math.sqrt(blocksPerSquare) * emptyWindowRatio);
     let blockWidth = 100/blocksPerRow;
     console.log("blockWidth is " + blockWidth);
-    let absoluteBlockBorderWidth = 0.06 * blockWidth * $(window).width() / 100;
+    let absoluteBlockBorderWidth = 0.05 * blockWidth * $(window).width() / 100;
     console.log("blockborder width is: " + absoluteBlockBorderWidth);
     let numberOfRows = Math.ceil(amount / blocksPerRow);
 
