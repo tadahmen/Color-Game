@@ -119,7 +119,7 @@ function noFishInBlock (block) {
 function droppable (event) {
   event.preventDefault();
   if (noFishInBlock(event.target)) {
-    fishColor = event.dataTransfer.getData("text");
+    let fishColor = event.dataTransfer.getData("text");
     console.log("fishColor" + fishColor);
     event.target.style.backgroundColor = fishColor;
   }
