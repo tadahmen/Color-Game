@@ -25,6 +25,40 @@ body {
   text-shadow: 5px 5px 4px lightgreen;
 }
 
+#score-board {
+  position: absolute;
+  font-weight: bolder;
+  /*width: 70px;*/
+  text-align: center;
+  left: 10%;
+  top: 30px;
+  font-size: 20px;
+  color: lightyellow;
+  text-shadow: 1px 1px 4px yellow;
+}
+
+#score, #time {
+  font-size: 30px
+}
+
+#clock {
+  position: absolute;
+  font-weight: bolder;
+  /*width: 100px;*/
+  text-align: center;
+  right: 10%;
+  top: 30px;
+  font-size: 20px;
+  color: lightyellow;
+  text-shadow: 1px 1px 4px yellow;
+}
+
+#congratulation {
+  width: 130px;
+  height: 100px;
+  top: 20px
+}
+
 #blocks-container {
   margin: 0px 10px 0px 10px;
 }
@@ -47,13 +81,56 @@ body {
   z-index: 1;
 }
 
+.mirror-fish {
+  transform: rotateY(180deg);
+}
+
 .colorBlock {
   display: inline-block;
   position: relative;
   margin: 0px;
   border-radius: 10px;
   opacity: 0.85;
-  z-index: 0px;
+  color: black;
+  font-size: 20px;
+  z-index: 0;
+}
+
+.points {
+  position: absolute;
+  width: auto;
+  font-size: 25px;
+  font-weight: bold;
+  opacity: 1;
+  color: black;
+  background: none;
+  z-index: -100;
+  text-shadow: 1px 1px 4px black;
+  animation-name: showPoints;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  -webkit-animation-name: showPoints;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in;
+}
+
+@keyframes showPoints {
+  0% {opacity:1}
+  10% {font-size: 400%; color: yellow}
+  20% {color: red}
+  30% {color: blue}
+  50% {opacity: 0.8}
+  100% {font-size: 0%; opacity:0}
+
+}
+
+@-webkit-keyframes showPoints {
+    0% {opacity:1}
+    10% {font-size: 400%; color: yellow}
+    20% {color: red}
+    30% {color: blue}
+    50% {opacity: 0.8}
+    100% {font-size: 0%; opacity:0}
 }
 
 @media screen and (max-width: 600px) {
