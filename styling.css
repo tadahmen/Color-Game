@@ -25,32 +25,26 @@ body {
   text-shadow: 5px 5px 4px lightgreen;
 }
 
-#score-board {
+.counter {
   position: absolute;
   font-weight: bolder;
-  /*width: 70px;*/
   text-align: center;
-  left: 10%;
-  top: 30px;
+  top: 3%;
   font-size: 20px;
   color: lightyellow;
   text-shadow: 1px 1px 4px yellow;
+}
+
+#score-board {
+  left: 10%;
+}
+
+#clock {
+  right: 10%
 }
 
 #score, #time {
   font-size: 30px
-}
-
-#clock {
-  position: absolute;
-  font-weight: bolder;
-  /*width: 100px;*/
-  text-align: center;
-  right: 10%;
-  top: 30px;
-  font-size: 20px;
-  color: lightyellow;
-  text-shadow: 1px 1px 4px yellow;
 }
 
 #blocks-container {
@@ -88,6 +82,9 @@ body {
   color: black;
   font-size: 20px;
   z-index: 0;
+}
+
+@media screen and (max-width: 800px) {
 }
 
 @media screen and (max-width: 600px) {
