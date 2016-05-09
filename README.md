@@ -1,5 +1,8 @@
 --A simple game I created--
 
+play it online: http://coach-colin-46203.bitballoon.com/
+
+
 You see a number of blocks. Each block has a color and it has a border that can have another color.
 
 THE GOAL of the game is to paint each block the same color as its border.

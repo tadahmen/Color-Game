@@ -3,14 +3,37 @@ let totalColors = colorList.length;
 let fishPositions = [];
 let numberOfBlocks = 0;
 
+    // let time = 600;
+
+
+
+function countDown() {
+  let counter = setInterval(count, 1000);
+  function count () {
+    if (sessionStorage.getItem("finished")){
+      clearInterval(counter)
+    } else {
+      let time = parseInt(sessionStorage.getItem("time"));
+      time--
+      document.getElementById("time").innerHTML = time;
+      sessionStorage.setItem("time", time.toString())
+    }
+  }
+}
+
 function initialize(){
+  sessionStorage.setItem("score", "0");
+  sessionStorage.setItem("time", 300);
+  sessionStorage.removeItem("finished");
+  countDown();
   $('body').css({ height: $(window).height() });
   // $('#blocks-container').css({ margin: 0px 10px 0px 10px });
-  createBlocks(24)
+  createBlocks(24);
+  createFish();
 }
 
 function randomColor() {
-    let randomIndex = Math.floor(Math.random()*totalColors);
+    let randomIndex = Math.floor(Math.random() * totalColors);
     console.log(randomIndex);
     return colorList[randomIndex]
   }
@@ -24,15 +47,14 @@ function createRows(amount) {
 }
 
 function createBlocks (amount) {
-    numberOfBlocks = amount;
-    let blockColor = "";
-    let borderColor = "";
+    numberOfBlocks = amount;  //value also used in function putFishInBlock
+
     let blocksContainerMargin = 10;
     /*window ratio is needed to calculate how to get all blocks in the screen while making optimal use of screenspace*/
     let freeHeight = $(window).height() - $("#blocks-container").offset().top;
-    console.log("blocks-container offset = " + $("#blocks-container").offset().top);
+    // console.log("blocks-container offset = " + $("#blocks-container").offset().top);
     let freeWidth = $(window).width() - (blocksContainerMargin*2);
-    console.log("free width = " + freeWidth);
+    // console.log("free width = " + freeWidth);
     let emptyWindowRatio = freeWidth/freeHeight;
     /*devide this in equal squares*/
     let blocksPerSquare = amount / emptyWindowRatio;
@@ -45,10 +67,13 @@ function createBlocks (amount) {
 
     createRows(numberOfRows);
 
-    // putBlocksInRow(blocks)
+    // put blocks in rows
+    let blockColor = "";
+    let borderColor = "";
     let i = 0;
     let j = 0;
     let k = 0;
+
 
     for (j=0 ;j<numberOfRows; j++){
       for (k=0; k<blocksPerRow; k++) {
@@ -62,18 +87,6 @@ function createBlocks (amount) {
         }
       }
     }
-    // for (i=1; i<=amount; i++) {
-    //     blockColor = randomColor();
-    //     borderColor = randomColor();
-    //     console.log ("color is: " + blockColor);
-    //     let block = "<div class = 'colorBlock' style = 'background-color: " + blockColor + "; border: 5px solid " + borderColor + "' ondragover = 'droppable(event)' ondrop = 'drop (event)'> </div>";
-    //     $("body").append(block);
-    // }
-
-    // let height = $(".colorBlock").css("width");
-    // $(".colorBlock").css({height: height});
-
-    createFish();
 }
 
 function notInList(randomBlock) {
@@ -97,8 +110,11 @@ function putFishInBlock (fishColor) {
         console.log("the fishpositions are " + fishPositions);
         fishBlock = $(".colorBlock").eq(randomBlock);
         fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'true' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
-          //the fish image is a free web icon
-        document.getElementsByClassName("colorBlock")[randomBlock].style.backgroundColor = fishColor;
+                          //(the fish image is a free web icon)
+        $(fishBlock).css({
+          backgroundColor: fishColor,
+          borderColor: fishColor
+          });
     } else {
       putFishInBlock (fishColor)
     }
@@ -114,6 +130,7 @@ function createFish() {
     }
 }
 
+
 function drag (event) {
   event.dataTransfer.setData(type ="text", event.target.id);
   sessionStorage.setItem("color", event.target.style.color); //to get color in dragover event; dataTransfer can only be accessed in drop event.
@@ -125,18 +142,101 @@ function noFishInBlock (block) {
   return !$(block).children()[0]
 }
 
+function changeScore (block, fishColor) {
+  let borderColor = block.style.borderColor;
+  console.log("block border color = " + block.style.borderColor);
+  let score = parseInt(sessionStorage.getItem("score"));
+  console.log("score = " + score);
+  if (fishColor === borderColor) {
+    score += 40
+  } else {
+    score -= 40
+  }
+  document.getElementById("score").innerHTML = score;
+  sessionStorage.setItem("score", score.toString() )
+  console.log("new score in sessionstorage = " + sessionStorage.getItem("score"));
+  // $("#points").detach()
+}
+
+function checkFinished () {
+let borderColor = "";
+let blockColor = "";
+let allBlocks = $(".colorBlock");
+let amountOfBlocks = allBlocks.length;
+  for (i=0; i < amountOfBlocks; i++) {
+    borderColor = allBlocks[i].style.borderColor;
+    blockColor = allBlocks[i].style.backgroundColor;
+    if (borderColor != blockColor) return false;
+  }
+  sessionStorage.setItem("finished", "true");
+  return true
+}
+
 function droppable (event) {
   event.preventDefault();
   if (noFishInBlock(event.target)) {
     let fishColor = sessionStorage.getItem("color"); //dataTransfer cannot be accessed in 'ondragover' event.
-    console.log("fishColor " + fishColor);
-    event.target.style.backgroundColor = fishColor;
+    let block = event.target;
+    let blockColor = block.style.backgroundColor;
+    if (blockColor != fishColor) {
+      console.log("change color");
+      block.style.backgroundColor = fishColor;
+      changeScore(block, fishColor)
+    }
   }
-  console.log("no fish in block? = " + noFishInBlock(event.target) );
+  // console.log("no fish in block? = " + noFishInBlock(event.target) );
 }
 
 function noTarget (event) {
     event.stopPropagation();  //'stops' this element from being a target (because the parent div is a target)
+}
+
+function relativeXPosition (droppedFish, event) {
+  let xPositionFish = event.clientX - offsetX;
+  let xPositionBlock = $(event.target).position().left;
+  let xPositionInBlock = xPositionFish - xPositionBlock;
+  let widthBlock = $(event.target).outerWidth();
+  let relativeXPosition = (xPositionInBlock /widthBlock) * 100 + "%";
+  return relativeXPosition
+}
+
+function relativeYPosition (droppedFish, event) {
+  let yPositionFish = event.clientY - offsetY;
+  let yPositionBlock = $(event.target).position().top;
+  // console.log("offsetY = " + offsetY);
+  // console.log("y position block = " + yPositionBlock);
+  let yPositionInBlock = yPositionFish - yPositionBlock;
+  let heightBlock = $(event.target).height()+$(event.target).outerHeight();
+  let relativeYPosition = (yPositionInBlock /heightBlock) * 100 + "%";
+  // console.log("relative y position = " + yPositionRelative);
+  return relativeYPosition
+}
+
+function countScore() {
+  let time = parseInt(sessionStorage.getItem("time"));
+  let score = parseInt(sessionStorage.getItem("score"));
+  console.log("time is: " + time);
+  let counter = setInterval(count, 20);
+  function count () {
+    if (time > 0) {
+      time--
+      score++
+      document.getElementById("clock").getElementsByClassName("text")[0].innerHTML = "adding bonus:";
+      document.getElementById("time").innerHTML = time;
+      document.getElementById("score").innerHTML = score + "!";
+    } else {
+      document.getElementById("clock").innerHTML = "Well done!";
+      clearInterval(counter)
+    }
+  }
+}
+
+function celebrate () {
+  let fish = $('.fish');
+  fish.animate({left: '-12%'}, 500);
+  fish.animate({left: '-2%'}, 200, function(){fish.toggleClass("mirror-fish")} );
+  fish.animate({left: '27%'}, 500);
+  fish.animate({left: '17%'}, 200, function(){fish.toggleClass("mirror-fish"); celebrate()} );
 }
 
 function drop (event) {
@@ -146,40 +246,26 @@ function drop (event) {
     let droppedFish = document.getElementById(id);
     event.target.appendChild(droppedFish);
 
-    let xPositionFish = event.clientX - offsetX;
-    let xPositionBlock = $(event.target).position().left;
-    let xPositionInBlock = xPositionFish - xPositionBlock;
-    let widthBlock = $(event.target).outerWidth();
-    let xPositionRelative = (xPositionInBlock /widthBlock) * 100 + "%";
-    droppedFish.style.left = xPositionRelative;
+    // let xPositionFish = event.clientX - offsetX;
+    // let xPositionBlock = $(event.target).position().left;
+    // let xPositionInBlock = xPositionFish - xPositionBlock;
+    // let widthBlock = $(event.target).outerWidth();
+    // let xPositionRelative = (xPositionInBlock /widthBlock) * 100 + "%";
+    droppedFish.style.left = relativeXPosition (droppedFish, event);
 
-    let yPositionFish = event.clientY - offsetY;
-    let yPositionBlock = $(event.target).position().top;
-    console.log("offsetY = " + offsetY);
-    console.log("y position block = " + yPositionBlock);
-    let yPositionInBlock = yPositionFish - yPositionBlock;
-    let heightBlock = $(event.target).height()+$(event.target).outerHeight();
-    let yPositionRelative = (yPositionInBlock /heightBlock) * 100 + "%";
-    console.log("relative y position = " + yPositionRelative);
-    droppedFish.style.top = yPositionRelative;
+    // let yPositionFish = event.clientY - offsetY;
+    // let yPositionBlock = $(event.target).position().top;
+    // console.log("offsetY = " + offsetY);
+    // console.log("y position block = " + yPositionBlock);
+    // let yPositionInBlock = yPositionFish - yPositionBlock;
+    // let heightBlock = $(event.target).height()+$(event.target).outerHeight();
+    // let yPositionRelative = (yPositionInBlock /heightBlock) * 100 + "%";
+    // console.log("relative y position = " + yPositionRelative);
+    droppedFish.style.top = relativeYPosition (droppedFish, event);
+    if (checkFinished()) {
+      celebrate();
+      countScore()
+    }
+    console.log(checkFinished())
   }
 }
-
-/* to drag-drop either text or color*/
-// function drop (event) {
-//   let data = "";
-//   console.log("dropping data");
-//   event.preventDefault();
-//   console.log(event.dataTransfer.getData("text"));
-//   if (event.dataTransfer.getData("text") !== "") {
-//       console.log ("getData 'text' is defined");
-//       data = event.dataTransfer.getData("text");
-//       event.target.appendChild(document.getElementById(data));
-//       event.dataTransfer.setData(type ="text", "undefined");
-//   } else {
-//         console.log ("getData 'text' is not defined");
-//         data = event.dataTransfer.getData("color");
-//         event.target.style.backgroundColor = data;
-//         event.dataTransfer.setData(type="color", "undefined")
-//     }
-// }
