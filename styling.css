@@ -53,12 +53,6 @@ body {
   text-shadow: 1px 1px 4px yellow;
 }
 
-#congratulation {
-  width: 130px;
-  height: 100px;
-  top: 20px
-}
-
 #blocks-container {
   margin: 0px 10px 0px 10px;
 }
@@ -94,43 +88,6 @@ body {
   color: black;
   font-size: 20px;
   z-index: 0;
-}
-
-.points {
-  position: absolute;
-  width: auto;
-  font-size: 25px;
-  font-weight: bold;
-  opacity: 1;
-  color: black;
-  background: none;
-  z-index: -100;
-  text-shadow: 1px 1px 4px black;
-  animation-name: showPoints;
-  animation-duration: 3s;
-  animation-timing-function: ease-in;
-  -webkit-animation-name: showPoints;
-  -webkit-animation-duration: 3s;
-  -webkit-animation-timing-function: ease-in;
-}
-
-@keyframes showPoints {
-  0% {opacity:1}
-  10% {font-size: 400%; color: yellow}
-  20% {color: red}
-  30% {color: blue}
-  50% {opacity: 0.8}
-  100% {font-size: 0%; opacity:0}
-
-}
-
-@-webkit-keyframes showPoints {
-    0% {opacity:1}
-    10% {font-size: 400%; color: yellow}
-    20% {color: red}
-    30% {color: blue}
-    50% {opacity: 0.8}
-    100% {font-size: 0%; opacity:0}
 }
 
 @media screen and (max-width: 600px) {

@@ -138,13 +138,6 @@ function drag (event) {
   offsetY = event.clientY - $(event.target).offset().top;
 }
 
-function showPoints(points, block) {
-  let xPosition = ($(block).width()- $(".points").width())/2;
-  let yPosition = ($(block).width()- $(".points").height())/2;
-  let message = "<p class='points' style = 'left: "+ xPosition +"px; top: "+ yPosition +"px'>" + points + "</p>";
-  $(block).append(message);
-}
-
 function noFishInBlock (block) {
   return !$(block).children()[0]
 }
@@ -155,10 +148,8 @@ function changeScore (block, fishColor) {
   let score = parseInt(sessionStorage.getItem("score"));
   console.log("score = " + score);
   if (fishColor === borderColor) {
-    showPoints("+ 40", block);
     score += 40
   } else {
-    showPoints("- 40", block);
     score -= 40
   }
   document.getElementById("score").innerHTML = score;
