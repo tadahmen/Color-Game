@@ -263,6 +263,6 @@ function drop (event) {
       celebrate();
       countScore()
     }
-    console.log(checkFinished())
+    // console.log(checkFinished())
   }
 }
