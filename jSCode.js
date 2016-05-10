@@ -3,10 +3,6 @@ let totalColors = colorList.length;
 let fishPositions = [];
 let numberOfBlocks = 0;
 
-    // let time = 600;
-
-
-
 function countDown() {
   let counter = setInterval(count, 1000);
   function count () {

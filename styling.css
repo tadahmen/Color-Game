@@ -25,32 +25,30 @@ body {
   text-shadow: 5px 5px 4px lightgreen;
 }
 
-#score-board {
+/*#title {
+  background-color: #334444;
+}*/
+
+.counter {
   position: absolute;
   font-weight: bolder;
-  /*width: 70px;*/
   text-align: center;
-  left: 10%;
-  top: 30px;
+  top: 3%;
   font-size: 20px;
   color: lightyellow;
   text-shadow: 1px 1px 4px yellow;
+}
+
+#score-board {
+  left: 8%;
+}
+
+#clock {
+  right: 8%
 }
 
 #score, #time {
   font-size: 30px
-}
-
-#clock {
-  position: absolute;
-  font-weight: bolder;
-  /*width: 100px;*/
-  text-align: center;
-  right: 10%;
-  top: 30px;
-  font-size: 20px;
-  color: lightyellow;
-  text-shadow: 1px 1px 4px yellow;
 }
 
 #blocks-container {
@@ -90,6 +88,30 @@ body {
   z-index: 0;
 }
 
-@media screen and (max-width: 600px) {
-  #page-heading {font-size: 36px}
+@media screen and (max-width: 850px) {
+  #page-heading {font-size: 45px}
+
+  .counter {font-size: 15px}
+
+  #score, #time {font-size: 23px}
+}
+
+@media screen and (max-width: 700px) {
+  #page-heading {font-size: 38px}
+
+  .counter {font-size: 12px}
+
+  #score, #time {font-size: 19px}
+}
+
+@media screen and (max-width: 550px) {
+  #page-heading {font-size: 36px; height: 100px}
+
+  #title {position: relative; top:-10px}
+
+  .counter {top: 50px }
+
+  #score-board {left: 20px }
+
+  #clock {right: 20px }
 }
