@@ -3,6 +3,14 @@ let totalColors = colorList.length;
 let fishPositions = [];
 let numberOfBlocks = 0;
 
+function intro () {
+  $('#play').click(function(){
+    console.log("start game");
+    $("#intro").hide();
+    initialize ()
+  })
+}
+
 function countDown() {
   let counter = setInterval(count, 1000);
   function count () {
