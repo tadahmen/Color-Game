@@ -11,6 +11,26 @@ body {
   padding: 0px;
 }
 
+#intro {
+  position:absolute;
+  margin: 5%;
+  width: 90%;
+  height: 80%;
+  top: 7%;
+  border-radius: 20px;
+  background-color: white;
+  opacity: 0.95;
+  z-index: 2;
+}
+
+#intro h1 {
+  display: inline-block;
+  position: relative;
+  /*margin: 10%;*/
+  text-align: center;
+  top: 40%
+}
+
 #page-heading {
   display:block;
   font-size: 60px;
