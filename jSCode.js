@@ -23,14 +23,13 @@ function initialize(){
   sessionStorage.removeItem("finished");
   countDown();
   $('body').css({ height: $(window).height() });
-  // $('#blocks-container').css({ margin: 0px 10px 0px 10px });
   createBlocks(24);
   createFish();
 }
 
 function randomColor() {
     let randomIndex = Math.floor(Math.random() * totalColors);
-    console.log(randomIndex);
+    // console.log(randomIndex);
     return colorList[randomIndex]
   }
 
@@ -56,9 +55,9 @@ function createBlocks (amount) {
     let blocksPerSquare = amount / emptyWindowRatio;
     let blocksPerRow = Math.ceil(Math.sqrt(blocksPerSquare) * emptyWindowRatio);
     let blockWidth = 100/blocksPerRow;
-    console.log("blockWidth is " + blockWidth);
+    // console.log("blockWidth is " + blockWidth);
     let absoluteBlockBorderWidth = 0.05 * blockWidth * $(window).width() / 100;
-    console.log("blockborder width is: " + absoluteBlockBorderWidth);
+    // console.log("blockborder width is: " + absoluteBlockBorderWidth);
     let numberOfRows = Math.ceil(amount / blocksPerRow);
 
     createRows(numberOfRows);
@@ -76,7 +75,7 @@ function createBlocks (amount) {
         if (i<amount) {
           blockColor = randomColor();
           borderColor = randomColor();
-          console.log ("color is: " + blockColor);
+          // console.log ("color is: " + blockColor);
           let block = "<div class = 'colorBlock' style = 'background-color: " + blockColor + "; border: " + absoluteBlockBorderWidth + "px solid " + borderColor + "; width: " + blockWidth + "%; padding-bottom: " + ((100/blocksPerRow)-2) + "%' ondragover = 'droppable(event)' ondrop = 'drop (event)'> </div>";
           $(".block-row").eq(j).append(block);
           i++
@@ -90,20 +89,20 @@ function notInList(randomBlock) {
   let i = 0;
   for (i=0; i<=listLength; i++) {
       if (fishPositions[i] === randomBlock) {
-        console.log("returns false");
+        // console.log("returns false");
         return false;
       }
   }
-  console.log("returns true");
+  // console.log("returns true");
   return true;
 }
 
 function putFishInBlock (fishColor) {
     let randomBlock = Math.floor(Math.random()*numberOfBlocks);
-    console.log ("randomBlock is: " + randomBlock);
+    // console.log ("randomBlock is: " + randomBlock);
     if (notInList(randomBlock)) {
         fishPositions.push(randomBlock);
-        console.log("the fishpositions are " + fishPositions);
+        // console.log("the fishpositions are " + fishPositions);
         fishBlock = $(".colorBlock").eq(randomBlock);
         fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'true' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
                           //(the fish image is a free web icon)
@@ -121,7 +120,7 @@ function createFish() {
     let color = "";
     for (i = 0; i < totalColors; i++) {
         color = colorList[i];
-        console.log("color fish is " + color);
+        // console.log("color fish is " + color);
         putFishInBlock(color);
     }
 }
@@ -140,9 +139,9 @@ function noFishInBlock (block) {
 
 function changeScore (block, fishColor) {
   let borderColor = block.style.borderColor;
-  console.log("block border color = " + block.style.borderColor);
+  // console.log("block border color = " + block.style.borderColor);
   let score = parseInt(sessionStorage.getItem("score"));
-  console.log("score = " + score);
+  // console.log("score = " + score);
   if (fishColor === borderColor) {
     score += 40
   } else {
@@ -150,8 +149,7 @@ function changeScore (block, fishColor) {
   }
   document.getElementById("score").innerHTML = score;
   sessionStorage.setItem("score", score.toString() )
-  console.log("new score in sessionstorage = " + sessionStorage.getItem("score"));
-  // $("#points").detach()
+  // console.log("new score in sessionstorage = " + sessionStorage.getItem("score"));
 }
 
 function checkFinished () {
@@ -175,7 +173,7 @@ function droppable (event) {
     let block = event.target;
     let blockColor = block.style.backgroundColor;
     if (blockColor != fishColor) {
-      console.log("change color");
+      // console.log("change color");
       block.style.backgroundColor = fishColor;
       changeScore(block, fishColor)
     }
@@ -242,21 +240,8 @@ function drop (event) {
     let droppedFish = document.getElementById(id);
     event.target.appendChild(droppedFish);
 
-    // let xPositionFish = event.clientX - offsetX;
-    // let xPositionBlock = $(event.target).position().left;
-    // let xPositionInBlock = xPositionFish - xPositionBlock;
-    // let widthBlock = $(event.target).outerWidth();
-    // let xPositionRelative = (xPositionInBlock /widthBlock) * 100 + "%";
     droppedFish.style.left = relativeXPosition (droppedFish, event);
 
-    // let yPositionFish = event.clientY - offsetY;
-    // let yPositionBlock = $(event.target).position().top;
-    // console.log("offsetY = " + offsetY);
-    // console.log("y position block = " + yPositionBlock);
-    // let yPositionInBlock = yPositionFish - yPositionBlock;
-    // let heightBlock = $(event.target).height()+$(event.target).outerHeight();
-    // let yPositionRelative = (yPositionInBlock /heightBlock) * 100 + "%";
-    // console.log("relative y position = " + yPositionRelative);
     droppedFish.style.top = relativeYPosition (droppedFish, event);
     if (checkFinished()) {
       $(".fish").attr("draggable",false);
