@@ -259,6 +259,7 @@ function drop (event) {
     // console.log("relative y position = " + yPositionRelative);
     droppedFish.style.top = relativeYPosition (droppedFish, event);
     if (checkFinished()) {
+      $(".fish").attr("draggable",false);
       celebrate();
       countScore()
     }
