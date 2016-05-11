@@ -11,7 +11,7 @@ body {
   padding: 0px;
 }
 
-#intro {
+#intro, #score-form{
   position:absolute;
   margin: 5%;
   width: 90%;
@@ -21,6 +21,10 @@ body {
   background-color: white;
   opacity: 0.93;
   z-index: 2;
+}
+
+#score-form {
+  left: -1500px;
 }
 
 #intro button {
@@ -122,6 +126,7 @@ body {
   font-size: 20px;
   z-index: 0;
 }
+
 
 @media screen and (max-width: 850px) {
   #page-heading {font-size: 45px}

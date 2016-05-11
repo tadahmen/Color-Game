@@ -13,7 +13,7 @@ function start () {
 function intro () {
   $('#play').click(function(){
     console.log("starting game");
-    $('#intro').css({'transition': 'opacity 0.9s', 'transition-timing-function': 'ease-out',	 'opacity': '0.82'});
+    $('#intro').css({'transition': 'opacity 0.9s ease-out',	 'opacity': '0.82'});
     $('#play').css({'background-color': 'orange'});
     countDownToStart (3)
   });
@@ -51,7 +51,7 @@ function initialize(){
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
   $('body').css({ height: $(window).height() });
-  createBlocks(24);
+  createBlocks(8);
   createFish();
   intro();
 }
@@ -235,6 +235,10 @@ function relativeYPosition (droppedFish, event) {
   return relativeYPosition
 }
 
+function addName () {
+  $('#score-form').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+}
+
 function countScore() {
   let time = parseInt(sessionStorage.getItem("time"));
   let score = parseInt(sessionStorage.getItem("score"));
@@ -249,7 +253,8 @@ function countScore() {
       document.getElementById("score").innerHTML = score + "!";
     } else {
       document.getElementById("clock").innerHTML = "Well done!";
-      clearInterval(counter)
+      clearInterval(counter);
+      addName();
     }
   }
 }
@@ -274,7 +279,7 @@ function drop (event) {
     droppedFish.style.top = relativeYPosition (droppedFish, event);
     if (checkFinished()) {
       $(".fish").attr("draggable",false);
-      celebrate();
+      // celebrate();
       countScore()
     }
     // console.log(checkFinished())
