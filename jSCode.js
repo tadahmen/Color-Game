@@ -3,13 +3,32 @@ let totalColors = colorList.length;
 let fishPositions = [];
 let numberOfBlocks = 0;
 
+function start () {
+  console.log("you can play now");
+  $("#intro").hide();
+  $(".fish").attr("draggable", true);
+  countDown()
+}
+
 function intro () {
   $('#play').click(function(){
-    console.log("start game");
-    $("#intro").hide();
-    $(".fish").attr("draggable", true);
-    countDown();
-  })
+    console.log("starting game");
+    $('#play').css({'background-color': 'orange'});
+    countDownToStart (3)
+  });
+}
+
+function countDownToStart (time) {
+  $("#play").html("<h1>" + time + "</h1>")
+  if (time > 0) {
+    console.log("counting down: " + time);
+    setTimeout(function(){ countDownToStart (time-1) }, 1000);
+  } else {
+    $('#play').css({'background-color': 'green'});
+    setTimeout(function(){
+      $("#intro").animate({left: '-1000px'}, "fast", start)
+    }, 1000)
+  }
 }
 
 function countDown() {

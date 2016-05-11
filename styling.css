@@ -37,6 +37,7 @@ body {
 #play {
   top: 30%;
   border-radius: 20px;
+  width: 110px;
   margin: auto;
 }
 
