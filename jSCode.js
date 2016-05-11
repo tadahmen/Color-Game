@@ -7,6 +7,7 @@ function intro () {
   $('#play').click(function(){
     console.log("start game");
     $("#intro").hide();
+    $(".fish").attr("draggable", true);
     countDown();
   })
 }
@@ -112,7 +113,7 @@ function putFishInBlock (fishColor) {
         fishPositions.push(randomBlock);
         // console.log("the fishpositions are " + fishPositions);
         fishBlock = $(".colorBlock").eq(randomBlock);
-        fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'true' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
+        fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'false' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
                           //(the fish image is a free web icon)
         $(fishBlock).css({
           backgroundColor: fishColor,
