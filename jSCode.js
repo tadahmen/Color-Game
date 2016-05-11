@@ -13,7 +13,7 @@ function start () {
 function intro () {
   $('#play').click(function(){
     console.log("starting game");
-    $('#intro').css({'transition': 'opacity 1.5s', 'opacity': '0.8'});
+    $('#intro').css({'transition': 'opacity 0.9s', 'transition-timing-function': 'ease-out',	 'opacity': '0.82'});
     $('#play').css({'background-color': 'orange'});
     countDownToStart (3)
   });
