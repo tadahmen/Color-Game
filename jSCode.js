@@ -7,7 +7,7 @@ function intro () {
   $('#play').click(function(){
     console.log("start game");
     $("#intro").hide();
-    initialize ()
+    countDown();
   })
 }
 
@@ -29,10 +29,10 @@ function initialize(){
   sessionStorage.setItem("score", "0");
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
-  countDown();
   $('body').css({ height: $(window).height() });
   createBlocks(24);
   createFish();
+  intro();
 }
 
 function randomColor() {

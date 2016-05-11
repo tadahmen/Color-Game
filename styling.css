@@ -16,10 +16,10 @@ body {
   margin: 5%;
   width: 90%;
   height: 80%;
-  top: 7%;
+  top: 5%;
   border-radius: 20px;
   background-color: white;
-  opacity: 0.95;
+  opacity: 0.92;
   z-index: 2;
 }
 
@@ -35,9 +35,14 @@ body {
 }
 
 #play {
-  top: 25%;
+  top: 30%;
   border-radius: 20px;
   margin: auto;
+}
+
+#play h1 {
+  margin:10px;
+  font-weight: bolder;
 }
 
 #page-heading {
