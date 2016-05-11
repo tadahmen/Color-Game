@@ -3,6 +3,35 @@ let totalColors = colorList.length;
 let fishPositions = [];
 let numberOfBlocks = 0;
 
+function start () {
+  console.log("you can play now");
+  $("#intro").hide();
+  $(".fish").attr("draggable", true);
+  countDown()
+}
+
+function intro () {
+  $('#play').click(function(){
+    console.log("starting game");
+    $('#intro').css({'transition': 'opacity 0.9s ease-out',	 'opacity': '0.82'});
+    $('#play').css({'background-color': 'orange'});
+    countDownToStart (3)
+  });
+}
+
+function countDownToStart (time) {
+  $("#play").html("<h1>" + time + "</h1>")
+  if (time > 0) {
+    console.log("counting down: " + time);
+    setTimeout(function(){ countDownToStart (time-1) }, 1000);
+  } else {
+    $('#play').css({'background-color': 'green'});
+    setTimeout(function(){
+      $("#intro").animate({left: '-1000px'}, "fast", start)
+    }, 1000)
+  }
+}
+
 function countDown() {
   let counter = setInterval(count, 1000);
   function count () {
@@ -21,10 +50,10 @@ function initialize(){
   sessionStorage.setItem("score", "0");
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
-  countDown();
   $('body').css({ height: $(window).height() });
-  createBlocks(24);
+  createBlocks(8);
   createFish();
+  intro();
 }
 
 function randomColor() {
@@ -104,7 +133,7 @@ function putFishInBlock (fishColor) {
         fishPositions.push(randomBlock);
         // console.log("the fishpositions are " + fishPositions);
         fishBlock = $(".colorBlock").eq(randomBlock);
-        fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'true' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
+        fishBlock.append("<img id = '" + fishColor + "' class= 'fish' src = http://www.icon2s.com/wp-content/uploads/2014/06/animal-icon-fish-yellow.png draggable = 'false' style='color:" + fishColor + "' ondragstart = 'drag(event)' ondragover = 'noTarget(event)'/>");
                           //(the fish image is a free web icon)
         $(fishBlock).css({
           backgroundColor: fishColor,
@@ -206,6 +235,10 @@ function relativeYPosition (droppedFish, event) {
   return relativeYPosition
 }
 
+function addName () {
+  $('#score-form').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+}
+
 function countScore() {
   let time = parseInt(sessionStorage.getItem("time"));
   let score = parseInt(sessionStorage.getItem("score"));
@@ -220,7 +253,8 @@ function countScore() {
       document.getElementById("score").innerHTML = score + "!";
     } else {
       document.getElementById("clock").innerHTML = "Well done!";
-      clearInterval(counter)
+      clearInterval(counter);
+      addName();
     }
   }
 }
@@ -245,7 +279,7 @@ function drop (event) {
     droppedFish.style.top = relativeYPosition (droppedFish, event);
     if (checkFinished()) {
       $(".fish").attr("draggable",false);
-      celebrate();
+      // celebrate();
       countScore()
     }
     // console.log(checkFinished())
