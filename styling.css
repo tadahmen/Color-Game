@@ -11,7 +11,7 @@ body {
   padding: 0px;
 }
 
-#intro, #score-form{
+#intro, #outro{
   position:absolute;
   margin: 5%;
   width: 90%;
@@ -23,8 +23,9 @@ body {
   z-index: 2;
 }
 
-#score-form {
+#outro {
   left: -1500px;
+  padding-top: 10%;
 }
 
 #intro button {
@@ -38,16 +39,31 @@ body {
   margin: auto;
 }
 
-#play {
+#play, .submit {
   top: 30%;
   border-radius: 20px;
   width: 110px;
   margin: auto;
+  /*background-color: #449d44;*/
 }
 
 #play h1 {
   margin:10px;
   font-weight: bolder;
+}
+
+#score-form * {
+  display: block;
+  position:relative;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+#congrats {
+  text-align: center;
 }
 
 #page-heading {
@@ -63,10 +79,6 @@ body {
   font-weight:bold;
   text-shadow: 5px 5px 4px lightgreen;
 }
-
-/*#title {
-  background-color: #334444;
-}*/
 
 .counter {
   position: absolute;

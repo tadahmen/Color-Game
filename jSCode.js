@@ -51,7 +51,7 @@ function initialize(){
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
   $('body').css({ height: $(window).height() });
-  createBlocks(8);
+  createBlocks(24);
   createFish();
   intro();
 }
@@ -236,7 +236,16 @@ function relativeYPosition (droppedFish, event) {
 }
 
 function addName () {
-  $('#score-form').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+}
+
+function handleInput (event) {
+  event.preventDefault();
+  console.log('handling score-form input');
+  window.open("index.html", "_self")
+  // $('#outro').hide().css({'left': '-1500px'});
+  // initialize();
+  // $('#intro').show()
 }
 
 function countScore() {
@@ -279,7 +288,7 @@ function drop (event) {
     droppedFish.style.top = relativeYPosition (droppedFish, event);
     if (checkFinished()) {
       $(".fish").attr("draggable",false);
-      // celebrate();
+      celebrate();
       countScore()
     }
     // console.log(checkFinished())

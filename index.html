@@ -37,17 +37,17 @@
             <div id = "blocks-container">
             </div>
 
-            <div id='score-form'>
-              <h1 id='congrats'> </h1>
-              <form onsubmit = "handleInput(event)"> <!--action="form-handler.html" method = "GET"-->
-                  <p class="inputLabel"> Name: </p>
-                      <input id = "name"
-                          name = "name"
-                          type = "text"
-                          placeholder = "type your name"
-                          required
-                          autofocus /> <br/>
-                  <button type="submit"> submit </button>
+            <div id='outro'>
+              <h1 id='congrats'> Congratulations! </h1>
+              <form id='score-form' onsubmit = "handleInput(event)"> <!--action="form-handler.html" method = "GET"-->
+                <p class="inputLabel"> Claim Eternal Fame: </p>
+                <input id = "name"
+                    name = "name"
+                    type = "text"
+                    placeholder = "type your name"
+                    required
+                    autofocus />
+                <button class='submit btn-success' type='submit'> submit </button>
               </from>
             </div>
       </div>
