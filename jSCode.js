@@ -236,7 +236,7 @@ function relativeYPosition (droppedFish, event) {
 }
 
 function addName () {
-  $('#score-form').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
 }
 
 function countScore() {
