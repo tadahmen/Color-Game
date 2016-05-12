@@ -1,6 +1,8 @@
+# Color Game
+
 --A simple game I created--
 
-play it online: http://coach-colin-46203.bitballoon.com/
+play it online: http://color-game.bitballoon.com/
 
 
 You see a number of blocks. Each block has a color and it has a border that can have another color.
