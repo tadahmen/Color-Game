@@ -235,14 +235,28 @@ function relativeYPosition (droppedFish, event) {
   return relativeYPosition
 }
 
-function addName () {
-  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+function addName (score) {
+  $('#totalScore').text(score);
+  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '0px'});
+}
+
+function showScores (item, index) {
+  let nameAndScore = item.split(':');
+  let name = nameAndScore[1];
+  let score = nameAndScore[0];
+  console.log(name + ' has ' + score + ' points')
 }
 
 function handleInput (event) {
   event.preventDefault();
+  console.log(document.getElementById.name.value);
+  localStorage.scoreList= "812: Merel, 392: Loek, 521: Dan";
+  let scoreList = (localStorage.scoreList.concat(', 724: Anne')).split(',').sort().reverse();
+  scoreList.forEach(showScores)
+  console.log(scoreList);
   console.log('handling score-form input');
   window.open("index.html", "_self")
+
   // $('#outro').hide().css({'left': '-1500px'});
   // initialize();
   // $('#intro').show()
@@ -263,7 +277,7 @@ function countScore() {
     } else {
       document.getElementById("clock").innerHTML = "Well done!";
       clearInterval(counter);
-      addName();
+      addName(score);
     }
   }
 }

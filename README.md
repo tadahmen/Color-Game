@@ -1,6 +1,6 @@
 # Color Game
 
---A simple game I created--
+--A game I created--
 
 play it online: http://color-game.bitballoon.com/
 
