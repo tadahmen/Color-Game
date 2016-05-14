@@ -12,6 +12,7 @@ function start () {
 
 function intro () {
   let stayDown = false;
+  let delayedPlayDown = function (){};
 
   $('#explanation-btn').click(function(){
     stayDown = !stayDown;
@@ -25,9 +26,10 @@ function intro () {
 
   $('#explanation-btn').mouseenter(function(){
     $('#explanation-txt').toggleClass('txt-up');
-    setTimeout(function(){$('#play').toggleClass('play-up')}, 200); //timeout for nicer effect
+    delayedPlayDown = setTimeout(function(){$('#play').toggleClass('play-up')}, 200); //timeout for nicer effect
   });
   $('#explanation-btn').mouseleave(function(){
+    clearTimeout(delayedPlayDown);  //to prevent delayed move of playbutton when mouse has already left again.
     $('#explanation-txt').addClass('txt-up');
     $('#play').addClass('play-up');
     setTimeout(function(){$('#play').addClass('play-up')}, 200); //to get rid of strange effects when mouse leaves within 200 ms after mouse enters.
