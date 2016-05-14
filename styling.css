@@ -25,7 +25,8 @@ body {
 
 #outro {
   left: -1500px;
-  padding-top: 10%;
+  padding-top: 5%;
+  text-align: center;
 }
 
 #intro button {
@@ -33,23 +34,102 @@ body {
   position: relative;
 }
 
-#explanation {
+#explanation-btn {
   border-radius: 20px 20px 0px 0px;
   width: 100%;
   margin: auto;
 }
 
+#explanation-container {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+}
+
+#explanation-txt {
+  position: relative;
+  transition: top 1s ease-out;
+  text-align: center;
+  margin: auto;
+}
+
+.txt-down {
+  top: 50px
+}
+
+.txt-up {
+  top:-168px
+}
+
+.txt-stay-down {
+  top: 50px
+}
+
+#explanation-txt p {
+  margin: 7px
+}
+
+#explanation-txt p:first-child {
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 #play, .submit {
-  top: 30%;
+  position: absolute;
   border-radius: 20px;
   width: 110px;
   margin: auto;
-  /*background-color: #449d44;*/
+  transition: top 0.8s ease-out
+}
+
+.submit {
+  top: 30%
 }
 
 #play h1 {
   margin:10px;
   font-weight: bolder;
+}
+
+.play-down {
+  top: 0px
+}
+
+.play-up {
+  top: -145px
+}
+
+.play-stay-down {
+  top: 0px
+}
+
+#congrats {
+  font-size: 40px;
+  font-weight: bold;
+  color: #449d44;
+  text-shadow: 3px 3px 6px lightblue
+}
+
+#totalScore {
+  display: inline-block;
+  font-size: 60px;
+  font-weight: bolder;
+  color: orange;
+}
+
+#scoreText {
+  position: absolute;
+  display: inline-block;
+  margin-top: 30px;
+  margin-left: 10px;
+  float: left;
+  font-size: 17px;
+  color: blue;
+  vertical-align: baseline;
 }
 
 #score-form * {
@@ -60,10 +140,7 @@ body {
   margin-bottom: 20px;
   font-size: 20px;
   text-align: center;
-}
-
-#congrats {
-  text-align: center;
+  border-radius: 20px;
 }
 
 #page-heading {

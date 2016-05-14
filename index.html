@@ -15,8 +15,18 @@
     <body onload="initialize()">
         <div id = "container" class = "container-fluid">
             <div id="intro">
-              <button id="explanation" class="btn-info"> <h1> explanation </h1> </button>
-              <button id="play" class="btn-success"> <h1> play </1> </button>
+              <button id="explanation-btn" class="btn-info"> <h1> explanation </h1> </button>
+              <div id='explanation-container'>
+                <span id='explanation-txt' class='txt-down txt-up'>
+                  <p> <span class='bold'> Make all blocks the same color as their border. </span> </p>
+                  <p> You can do this by dragging fish over the blocks. </p>
+                  <p> Changing blocks to the right color gives you points. </p>
+                  <p> But changing them into the wrong color will cost you points. </p>
+                  <p> Blocks that are occupied by a fish cannot change color, </p>
+                  <p> so those blocks give you 'free passage'. </p>
+                </span>
+            </div>
+              <button id="play" class="btn-success play-down play-up"> <h1> play </1> </button>
             </div>
 
             <div id = "top-bar">
@@ -39,6 +49,10 @@
 
             <div id='outro'>
               <h1 id='congrats'> Congratulations! </h1>
+              <div>
+                <p id='totalScore'> 832 </p>
+                <!-- <p id='scoreText'> points </p> -->
+              </div>
               <form id='score-form' onsubmit = "handleInput(event)"> <!--action="form-handler.html" method = "GET"-->
                 <p class="inputLabel"> Claim Eternal Fame: </p>
                 <input id = "name"

@@ -11,6 +11,30 @@ function start () {
 }
 
 function intro () {
+  let stayDown = false;
+  let delayedPlayDown = function (){};
+
+  $('#explanation-btn').click(function(){
+    stayDown = !stayDown;
+    $('#explanation-txt').toggleClass('txt-stay-down');
+    $('#play').toggleClass('play-stay-down');
+    if (stayDown === false) {
+      $('#explanation-txt').addClass('txt-up');
+      $('#play').addClass('play-up');
+    }
+  });
+
+  $('#explanation-btn').mouseenter(function(){
+    $('#explanation-txt').toggleClass('txt-up');
+    delayedPlayDown = setTimeout(function(){$('#play').toggleClass('play-up')}, 200); //timeout for nicer effect
+  });
+  $('#explanation-btn').mouseleave(function(){
+    clearTimeout(delayedPlayDown);  //to prevent delayed move of playbutton when mouse has already left again.
+    $('#explanation-txt').addClass('txt-up');
+    $('#play').addClass('play-up');
+    setTimeout(function(){$('#play').addClass('play-up')}, 200); //to get rid of strange effects when mouse leaves within 200 ms after mouse enters.
+  });
+
   $('#play').click(function(){
     console.log("starting game");
     $('#intro').css({'transition': 'opacity 0.9s ease-out',	 'opacity': '0.82'});
@@ -51,7 +75,7 @@ function initialize(){
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
   $('body').css({ height: $(window).height() });
-  createBlocks(24);
+  createBlocks(20);
   createFish();
   intro();
 }
@@ -235,14 +259,28 @@ function relativeYPosition (droppedFish, event) {
   return relativeYPosition
 }
 
-function addName () {
-  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '3%'});
+function addName (score) {
+  $('#totalScore').text(score);
+  $('#outro').show().css({'transition': 'left 0.2s ease-out', 'left': '0px'});
+}
+
+function showScores (item, index) {
+  let nameAndScore = item.split(':');
+  let name = nameAndScore[1];
+  let score = nameAndScore[0];
+  console.log(name + ' has ' + score + ' points')
 }
 
 function handleInput (event) {
   event.preventDefault();
+  console.log(document.getElementById.name.value);
+  localStorage.scoreList= "812: Merel, 392: Loek, 521: Dan";
+  let scoreList = (localStorage.scoreList.concat(', 724: Anne')).split(',').sort().reverse();
+  scoreList.forEach(showScores)
+  console.log(scoreList);
   console.log('handling score-form input');
   window.open("index.html", "_self")
+
   // $('#outro').hide().css({'left': '-1500px'});
   // initialize();
   // $('#intro').show()
@@ -263,7 +301,7 @@ function countScore() {
     } else {
       document.getElementById("clock").innerHTML = "Well done!";
       clearInterval(counter);
-      addName();
+      addName(score);
     }
   }
 }
