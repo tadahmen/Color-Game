@@ -43,6 +43,7 @@ function intro () {
   });
 }
 
+/* counting down from 3 when play button is clicked, then slide intro-screen out of window*/
 function countDownToStart (time) {
   $("#play").html("<h1>" + time + "</h1>")
   if (time > 0) {
@@ -56,6 +57,11 @@ function countDownToStart (time) {
   }
 }
 
+function gameOver() {
+  console.log('game over');
+  $('.fish').css({'transition': 'transform 1s ease-out', transform: 'rotate(180deg)'});
+}
+
 function countDown() {
   let counter = setInterval(count, 1000);
   function count () {
@@ -63,16 +69,21 @@ function countDown() {
       clearInterval(counter)
     } else {
       let time = parseInt(sessionStorage.getItem("time"));
-      time--
+      time--;
       document.getElementById("time").innerHTML = time;
-      sessionStorage.setItem("time", time.toString())
+      if (time === 0) {
+          gameOver();
+          clearInterval(counter)
+      } else {
+        sessionStorage.setItem("time", time.toString())
+      }
     }
   }
 }
 
 function initialize(){
   sessionStorage.setItem("score", "0");
-  sessionStorage.setItem("time", 300);
+  sessionStorage.setItem("time", 3);
   sessionStorage.removeItem("finished");
   $('body').css({ height: $(window).height() });
   createBlocks(20);
