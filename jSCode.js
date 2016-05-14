@@ -11,6 +11,28 @@ function start () {
 }
 
 function intro () {
+  let stayDown = false;
+
+  $('#explanation-btn').click(function(){
+    stayDown = !stayDown;
+    $('#explanation-txt').toggleClass('txt-stay-down');
+    $('#play').toggleClass('play-stay-down');
+    if (stayDown === false) {
+      $('#explanation-txt').addClass('txt-up');
+      $('#play').addClass('play-up');
+    }
+  });
+
+  $('#explanation-btn').mouseenter(function(){
+    $('#explanation-txt').toggleClass('txt-up');
+    setTimeout(function(){$('#play').toggleClass('play-up')}, 200); //timeout for nicer effect
+  });
+  $('#explanation-btn').mouseleave(function(){
+    $('#explanation-txt').addClass('txt-up');
+    $('#play').addClass('play-up');
+    setTimeout(function(){$('#play').addClass('play-up')}, 200); //to get rid of strange effects when mouse leaves within 200 ms after mouse enters.
+  });
+
   $('#play').click(function(){
     console.log("starting game");
     $('#intro').css({'transition': 'opacity 0.9s ease-out',	 'opacity': '0.82'});
@@ -51,7 +73,7 @@ function initialize(){
   sessionStorage.setItem("time", 300);
   sessionStorage.removeItem("finished");
   $('body').css({ height: $(window).height() });
-  createBlocks(24);
+  createBlocks(20);
   createFish();
   intro();
 }
