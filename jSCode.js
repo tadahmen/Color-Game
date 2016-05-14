@@ -82,11 +82,13 @@ function countDown() {
 }
 
 function initialize(){
+  let time = 150;
   sessionStorage.setItem("score", "0");
-  sessionStorage.setItem("time", 3);
+  sessionStorage.setItem("time", time);
   sessionStorage.removeItem("finished");
+  document.getElementById("time").innerHTML = time;
   $('body').css({ height: $(window).height() });
-  createBlocks(20);
+  createBlocks(24);
   createFish();
   intro();
 }
