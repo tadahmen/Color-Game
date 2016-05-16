@@ -45,7 +45,7 @@ function intro () {
 
 /* counting down from 3 when play button is clicked, then slide intro-screen out of window*/
 function countDownToStart (time) {
-  $("#play").html("<h1>" + time + "</h1>")
+  $("#play").off('click').html("<h1>" + time + "</h1>");
   if (time > 0) {
     console.log("counting down: " + time);
     setTimeout(function(){ countDownToStart (time-1) }, 1000);
